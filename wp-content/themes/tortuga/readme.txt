@@ -4,7 +4,7 @@ Theme URI: https://themezee.com/themes/tortuga/
 Contributors: themezee
 Tags: two-columns, custom-background, custom-header, custom-menu, editor-style, rtl-language-support, grid-layout, blog, entertainment, news, featured-image-header, featured-images, flexible-header, custom-colors, full-width-template, sticky-post, threaded-comments, translation-ready, theme-options, one-column, left-sidebar, right-sidebar, three-columns
 Requires at least: 4.4
-Tested up to: 4.7
+Tested up to: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,28 @@ For more information about Tortuga please go to https://themezee.com/themes/tort
 5. Navigate to Appearance > Customize in your admin panel and customize to taste.
 
 == Changelog ==
+
+= 1.2.3 =
+* fixed flexbox layout issues appearing with the latest Safari 10.1 version
+* fixed horizontal scrolling issue on mobile devices when elements are hidden in theme options
+
+= 1.2.2 =
+* fixed number of posts setting in Magazine widgets
+
+= 1.2.1 =
+* fixed layout rendering issue in Magazine Grid widget
+
+= 1.2 =
+* added template files for Magazine widgets to improve child theme compatibility
+* added transient caching for Magazine widgets to increase performance
+* added pluggable template functions for Magazine widgets
+* improved implementation of post meta settings for instant live preview in Customizer
+* replaced Magazine Boxed widget with Horizontal Box and Vertical Box widget
+
+= 1.1.6 =
+* added Magazine Homepage widgets to blog index
+* added fullwidth page template for blog posts
+* added centered page template for posts and static pages
 
 = 1.1.5 =
 * added editor shortcuts and instant live preview for site title and tagline in Customizer

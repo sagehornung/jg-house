@@ -21,8 +21,6 @@
 
 	<div class="entry-content clearfix">
 
-        <h1>This is a ETST</h1>
-
 		<?php the_content(); ?>
 
 		<?php wp_link_pages( array(

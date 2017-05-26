@@ -42,6 +42,26 @@ function tortuga_body_classes( $classes ) {
 		$classes[] = 'post-layout-three-columns post-layout-columns';
 	}
 
+	// Hide Date?
+	if ( false === $theme_options['meta_date'] ) {
+		$classes[] = 'date-hidden';
+	}
+
+	// Hide Author?
+	if ( false === $theme_options['meta_author'] ) {
+		$classes[] = 'author-hidden';
+	}
+
+	// Hide Categories?
+	if ( false === $theme_options['meta_category'] ) {
+		$classes[] = 'categories-hidden';
+	}
+
+	// Hide Comments?
+	if ( false === $theme_options['meta_comments'] ) {
+		$classes[] = 'comments-hidden';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'tortuga_body_classes' );
@@ -69,6 +89,16 @@ function tortuga_hide_elements() {
 		$elements[] = '.site-description';
 	}
 
+	// Hide Post Tags?
+	if ( false === $theme_options['meta_tags'] ) {
+		$elements[] = '.type-post .entry-footer .entry-tags';
+	}
+
+	// Hide Post Navigation?
+	if ( false === $theme_options['post_navigation'] ) {
+		$elements[] = '.type-post .entry-footer .post-navigation';
+	}
+
 	// Return early if no elements are hidden.
 	if ( empty( $elements ) ) {
 		return;
@@ -76,10 +106,7 @@ function tortuga_hide_elements() {
 
 	// Create CSS.
 	$classes = implode( ', ', $elements );
-	$custom_css = $classes . ' {
-	position: absolute;
-	clip: rect(1px, 1px, 1px, 1px);
-}';
+	$custom_css = $classes . ' { position: absolute; clip: rect(1px, 1px, 1px, 1px); width: 1px; height: 1px; overflow: hidden; }';
 
 	// Add Custom CSS.
 	wp_add_inline_style( 'tortuga-stylesheet', $custom_css );
@@ -109,26 +136,13 @@ add_filter( 'excerpt_length', 'tortuga_excerpt_length' );
 
 
 /**
- * Function to change excerpt length for posts in category posts widgets
- *
- * @param int $length Length of excerpt in number of words.
- * @return int
- */
-function tortuga_magazine_posts_excerpt_length( $length ) {
-	return 12;
-}
-
-
-/**
  * Change excerpt more text for posts
  *
  * @param String $more_text Excerpt More Text.
  * @return string
  */
 function tortuga_excerpt_more( $more_text ) {
-
 	return '';
-
 }
 add_filter( 'excerpt_more', 'tortuga_excerpt_more' );
 

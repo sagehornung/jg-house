@@ -4,7 +4,7 @@ Theme URI: https://themezee.com/themes/tortuga/
 Author: ThemeZee
 Author URI: https://themezee.com
 Description: Tortuga is a highly flexible and adventurous WordPress theme for your pirate magazine or any news related website. It supports three different post layouts, two sidebar schemes and a Magazine Homepage template based on widgets. Other highlights of Tortuga are the beautiful post slider and header widgets area. Arrr!
-Version: 1.1.5
+Version: 1.2.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: tortuga
@@ -656,8 +656,9 @@ textarea {
 	width: 27%;
 }
 
-/* No Sidebar Layout */
-.no-sidebar .content-area {
+/* No Sidebar & Centered Layout Template */
+.no-sidebar .content-area,
+.site-content .centered-content-area {
 	float: none;
 	padding: 0;
 	width: 100%;
@@ -670,10 +671,12 @@ textarea {
 }
 
 /* Fullwidth Template */
-.site-content .content-fullwidth {
+.site-content .fullwidth-content-area {
 	float: none;
+	margin: 0;
 	padding: 0;
 	width: 100%;
+	max-width: 100%;
 }
 
 /*--------------------------------------------------------------
@@ -727,6 +730,10 @@ textarea {
 .site-title a:hover,
 .site-title a:active {
 	color: #ccc;
+}
+
+.site-branding .custom-logo-link {
+	display: block;
 }
 
 .site-branding .custom-logo {
@@ -1168,7 +1175,6 @@ textarea {
 /*--------------------------------------------------------------
 ## 11.2 - Magazine Posts Widgets
 --------------------------------------------------------------*/
-
 .widget-magazine-posts {
 	margin-bottom: -1em;
 }
@@ -1245,8 +1251,8 @@ textarea {
 	font-size: 0.75rem;
 }
 
-/* Magazine Posts Boxed Widget Horizontal Style */
-.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .wp-post-image {
+/* Magazine Posts Horizontal Box Widget */
+.widget-magazine-posts .magazine-horizontal-box .large-post .wp-post-image {
 	float: left;
 	box-sizing: border-box;
 	margin: 0;
@@ -1254,19 +1260,19 @@ textarea {
 	width: 50%;
 }
 
-.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .post-content {
+.widget-magazine-posts .magazine-horizontal-box .large-post .post-content {
 	float: right;
 	box-sizing: border-box;
 	padding-left: 0.75em;
 	width: 50%;
 }
 
-.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .medium-posts {
+.widget-magazine-posts .magazine-horizontal-box .medium-posts {
 	margin-right: -1.5em;
 }
 
-/* Magazine Posts Boxed Widget Vertical Style */
-.widget-magazine-posts-boxed .magazine-posts-boxed-vertical .large-post {
+/* Magazine Posts Vertical Box Widget */
+.widget-magazine-posts .magazine-vertical-box .large-post {
 	float: left;
 	box-sizing: border-box;
 	margin-bottom: 1em;
@@ -1274,7 +1280,7 @@ textarea {
 	width: 50%;
 }
 
-.widget-magazine-posts-boxed .magazine-posts-boxed-vertical .small-posts {
+.widget-magazine-posts .magazine-vertical-box .small-posts {
 	box-sizing: border-box;
 	margin-left: 50%;
 	padding-left: 0.75em;
@@ -1282,26 +1288,31 @@ textarea {
 }
 
 /* Magazine Posts Grid Widget */
-.widget-magazine-posts-grid .magazine-posts-grid-row {
+.widget-magazine-posts .magazine-grid {
 	margin-right: -1.5em;
 }
 
-.widget-magazine-posts-grid .magazine-posts-grid-row .large-post {
+.widget-magazine-posts .magazine-grid .large-post {
 	float: left;
 	box-sizing: border-box;
 	padding-right: 1.5em;
 	width: 50%;
 }
 
+.widget-magazine-posts .magazine-grid .post-column:nth-child(2n+1) .large-post,
+.widget-magazine-posts .magazine-grid .post-column:nth-child(3n+1) .medium-post {
+	clear: left;
+}
+
 /* Magazine Posts Columns Widget */
-.tortuga-magazine-posts-columns {
+.tortuga-magazine-columns-widget {
 	padding: 0;
 	border: none;
 	background: none;
 	box-shadow: none;
 }
 
-.tortuga-magazine-posts-columns .widget-magazine-posts {
+.tortuga-magazine-columns-widget .widget-magazine-posts {
 	margin-bottom: 0;
 }
 
@@ -1482,6 +1493,19 @@ textarea {
 
 .entry-meta .meta-comments:before{
 	content: '\f300';
+}
+
+/* Hide post meta if they are deactivated in settings */
+body.date-hidden .entry-meta .meta-date,
+body.author-hidden .entry-meta .meta-author,
+body.categories-hidden .entry-meta .meta-category,
+body.comments-hidden .entry-meta .meta-comments {
+	 position: absolute;
+	 clip: rect(1px, 1px, 1px, 1px);
+}
+
+body.date-hidden.author-hidden.categories-hidden.comments-hidden .content-area .entry-meta {
+	display: none;
 }
 
 /* Entry Tags & Tagcloud Widget */
@@ -1777,15 +1801,6 @@ textarea {
 		display: block;
 	}
 
-}
-
-/* Fix Render Bug for Safari */
-@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
-	@media {
-		.post-layout-columns .post-wrapper .post-column {
-			margin-right: -1px;
-		}
-	}
 }
 
 /*--------------------------------------------------------------
@@ -2130,7 +2145,7 @@ object {
 		font-size: 0.9375rem;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .more-link  {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .more-link  {
 		display: none;
 	}
 
@@ -2140,7 +2155,7 @@ object {
 ## 14.2 - Desktop Medium ( < 1040px )
 --------------------------------------------------------------*/
 @media only screen and (max-width: 65em) {
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .entry-content {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .entry-content {
 		display: none;
 	}
 
@@ -2407,8 +2422,8 @@ object {
 	}
 
 	/* Magazine Post Widgets */
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .entry-content,
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .more-link {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .entry-content,
+	.widget-magazine-posts .magazine-horizontal-box .large-post .more-link {
 		display: inline-block;
 	}
 
@@ -2427,6 +2442,11 @@ object {
 		font-size: 1rem;
 	}
 
+	/* Footer */
+	.site-footer .site-info {
+		float: none;
+		text-align: center;
+	}
 }
 
 /*--------------------------------------------------------------
@@ -2470,7 +2490,7 @@ object {
 		font-size: 0.9375rem;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .more-link  {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .more-link  {
 		display: none;
 	}
 
@@ -2485,7 +2505,7 @@ object {
 		font-size: 0.9375rem;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .entry-content {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .entry-content {
 		display: none;
 	}
 
@@ -2536,20 +2556,20 @@ object {
 	}
 
 	/* Magazine Post Widgets */
-	.widget-magazine-posts-grid .large-post-row {
+	.widget-magazine-posts .magazine-grid-two-columns {
 		margin-right: 0;
 	}
 
-	.widget-magazine-posts-grid .magazine-posts-grid-row .large-post,
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .wp-post-image,
-	.widget-magazine-posts-boxed .magazine-posts-boxed-vertical .large-post,
+	.widget-magazine-posts .magazine-grid .large-post,
+	.widget-magazine-posts .magazine-horizontal-box .large-post .wp-post-image,
+	.widget-magazine-posts .magazine-vertical-box .large-post,
 	.widget-magazine-posts-columns .magazine-posts-column-left {
 		float: none;
 		padding: 0;
 		width: 100%;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-vertical .small-posts,
+	.widget-magazine-posts .magazine-vertical-box .small-posts,
 	.widget-magazine-posts-columns .magazine-posts-column-right {
 		margin-left: 0;
 		padding-top: 1em;
@@ -2563,17 +2583,17 @@ object {
 		max-width: 50%;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .post-content {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .post-content {
 		float: right;
 		padding-left: 1.5em;
 		width: 50%;
 	}
 
-	.widget-magazine-posts-grid .magazine-posts-grid-row .large-post {
+	.widget-magazine-posts .magazine-grid .large-post {
 		clear: left;
 	}
 
-	.widget-magazine-posts-grid .magazine-posts-grid-row .large-post .wp-post-image {
+	.widget-magazine-posts .magazine-grid .large-post .wp-post-image {
 		margin-bottom: 1em;
 	}
 
@@ -2598,7 +2618,7 @@ object {
 ## 14.8 - Mobile Large ( < 560px )
 --------------------------------------------------------------*/
 @media only screen and (max-width: 35em) {
-	.widget-magazine-posts-grid .medium-post-row {
+	.widget-magazine-posts .magazine-grid-three-columns {
 		margin-right: 0;
 	}
 
@@ -2645,13 +2665,13 @@ object {
 	}
 
 	.widget-magazine-posts .large-post .wp-post-image,
-	.widget-magazine-posts-grid .magazine-posts-grid-row .large-post .wp-post-image {
+	.widget-magazine-posts .magazine-grid .large-post .wp-post-image {
 		float: none;
 		margin: 0 0 0.5em 0;
 		max-width: 100%;
 	}
 
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .post-content {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .post-content {
 		float: none;
 		padding: 0;
 		width: 100%;
@@ -2664,8 +2684,8 @@ object {
 
 	.widget-magazine-posts .large-post .entry-content,
 	.widget-magazine-posts .large-post .entry-content .more-link,
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .entry-content,
-	.widget-magazine-posts-boxed .magazine-posts-boxed-horizontal .large-post .entry-content .more-link {
+	.widget-magazine-posts .magazine-horizontal-box .large-post .entry-content,
+	.widget-magazine-posts .magazine-horizontal-box .large-post .entry-content .more-link {
 		display: inline-block;
 	}
 
@@ -2758,5 +2778,26 @@ object {
 	.main-navigation-menu {
 		display: block !important;
 	}
+}
 
+/*--------------------------------------------------------------
+# 20.0 - CSS Hacks for Safari
+--------------------------------------------------------------*/
+
+/* Fix Flexbox issues for Safari 6.1-10.0 */
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
+	@media {
+		.post-layout-columns .post-wrapper .post-column {
+			margin-right: -1px;
+		}
+	}
+}
+
+/* Fix Flexbox issues for Safari 10.1+ */
+@media not all and (min-resolution:.001dpcm) {
+	@media {
+		.post-layout-columns .post-wrapper .post-column {
+			margin-right: -1px;
+		}
+	}
 }
